@@ -3,14 +3,12 @@ import "./App.css";
 
 function App() {
   return (
-    <>
-      <Web3Button
-        contractAddress="0x265482e464e0F4343075EfEe719C88b86c8e1F19"
-        action={async (contract) => contract.call("myFunctionName")}
-      >
-        Call myFunctionName from the connected wallet
-      </Web3Button>
-    </>
+    <Web3Button
+      contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
+      action={async (contract) => contract.call("myFunctionName")}
+    >
+      test
+    </Web3Button>
   );
 }
 
