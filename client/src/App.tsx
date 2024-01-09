@@ -1,14 +1,15 @@
-import { Web3Button } from "@thirdweb-dev/react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Container } from "@radix-ui/themes";
 import "./App.css";
+import { Root } from "./components/Root";
+
+const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
 function App() {
   return (
-    <Web3Button
-      contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
-      action={async (contract) => contract.call("myFunctionName")}
-    >
-      test
-    </Web3Button>
+    <Container>
+      <RouterProvider router={router} />
+    </Container>
   );
 }
 

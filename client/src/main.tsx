@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -10,7 +12,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       activeChain={import.meta.env.VITE_ACTIVECHAIN}
       clientId={import.meta.env.VITE_CLIENTID}
     >
-      <App />
+      <Theme
+        accentColor="crimson"
+        grayColor="sand"
+        radius="large"
+        scaling="95%"
+      >
+        <App />
+      </Theme>
     </ThirdwebProvider>
   </React.StrictMode>
 );

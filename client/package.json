@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/themes": "^2.0.3",
     "@thirdweb-dev/react": "^4.2.2",
     "@thirdweb-dev/sdk": "^4.0.25",
     "ethers": "^5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
