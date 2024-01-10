@@ -31,7 +31,7 @@ export const Property = () => {
                     Located at Ngoma Kibungo, Rwanda
                   </Text>
 
-                  <Button variant="solid" color="green">
+                  <Button variant="solid" mt="2">
                     Buy asset
                   </Button>
                 </Box>

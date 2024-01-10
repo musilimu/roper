@@ -16,7 +16,7 @@ export const Root = () => {
           contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
           action={async (contract) => contract.call("hello")}
         >
-          test
+          Register
         </Web3Button>
       </Flex>
       <Routes>
