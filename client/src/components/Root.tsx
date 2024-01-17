@@ -14,7 +14,7 @@ export const Root = () => {
         <Header />
         <Web3Button
           contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
-          action={async (contract) => contract.call("hello")}
+          action={async (contract) => contract.call("owner")}
         >
           Register
         </Web3Button>
