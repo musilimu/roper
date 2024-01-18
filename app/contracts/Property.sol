@@ -46,22 +46,32 @@ contract Property is ERC721Base {
     }
 
     mapping(uint256 => Lesson) lessons;
-    mapping(uint256 => mapping(uint256 => Review)) lessonsReviews;
+    mapping(uint256 => mapping(address => Review)) lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) exercises;
     uint256 public exercisesCount = 0;
     uint256 public lessonsCount = 0;
 
     function getLessons() public view returns (Lesson[] memory) {
         Lesson[] memory lessons_ = new Lesson[](lessonsCount);
-        for (uint i = 0; i < lessonsCount; i++) {
+        for (uint256 i = 0; i < lessonsCount; i++) {
             lessons_[i] = lessons[i];
         }
         return lessons_;
     }
 
+    event createLessonE(string notes, string name);
+
     function createLesson(string memory notes, string memory name) public {
         lessons[lessonsCount++] = Lesson(msg.sender, notes, false, name);
+        emit createLessonE(notes, name);
     }
+
+    event addExerciseE(
+        uint256 lessonId,
+        string question,
+        string[] answerTexts,
+        bool[] isCorrect
+    );
 
     function addExercise(
         uint256 lessonId,
@@ -82,9 +92,11 @@ contract Property is ERC721Base {
         Exercise storage newExercise = exercises[lessonId][exercisesCount++];
         newExercise.question = question;
 
-        for (uint i = 0; i < answerTexts.length; i++) {
+        for (uint256 i = 0; i < answerTexts.length; i++) {
             newExercise.answers.push(Answer(answerTexts[i], isCorrect[i]));
         }
+
+        emit addExerciseE(lessonId, question, answerTexts, isCorrect);
     }
 
     function getExercises(
@@ -93,9 +105,48 @@ contract Property is ERC721Base {
         require(lessonId < lessonsCount, "Lesson does not exist");
 
         Exercise[] memory lessonExercises = new Exercise[](exercisesCount);
-        for (uint i = 0; i < exercisesCount; i++) {
+        for (uint256 i = 0; i < exercisesCount; i++) {
             lessonExercises[i] = exercises[lessonId][i];
         }
         return lessonExercises;
+    }
+
+    event addReviewE(uint256 lessonId, string message, uint256 stars);
+
+    function addReview(
+        uint256 lessonId,
+        string memory message,
+        uint256 stars
+    ) public {
+        require(lessonId < lessonsCount, "Lesson does not exist");
+        require(stars >= 1 && stars <= 5, "Stars should be between 1 and 5");
+
+        lessonsReviews[lessonId][msg.sender] = Review(message, stars);
+        emit addReviewE(lessonId, message, stars);
+    }
+
+    function getReviews(
+        uint256 lessonId
+    ) public view returns (Review[] memory) {
+        require(lessonId < lessonsCount, "Lesson does not exist");
+
+        uint256 numReviews = 0;
+        address[] memory reviewers = new address[](lessonsCount);
+
+        for (uint256 i = 0; i < lessonsCount; i++) {
+            if (lessonsReviews[lessonId][msg.sender].stars > 0) {
+                reviewers[numReviews] = msg.sender;
+                numReviews++;
+            }
+        }
+
+        Review[] memory lessonReviews = new Review[](numReviews);
+
+        for (uint256 i = 0; i < numReviews; i++) {
+            address reviewer = reviewers[i];
+            lessonReviews[i] = lessonsReviews[lessonId][reviewer];
+        }
+
+        return lessonReviews;
     }
 }
