@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <Flex gap="3">
       <NavLink asChild>
-        <Link to="/">Assets</Link>
+        <Link to="/">Lessons</Link>
       </NavLink>
       <NavLink asChild>
         <Link to="/teachers">teachers</Link>

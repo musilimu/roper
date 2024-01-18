@@ -4,39 +4,8 @@ import { Link } from "react-router-dom";
 
 export const Property = () => {
   const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS);
-  const { data: properties, isLoading } = useContractRead(
-    contract,
-    "getAllProperties"
-  );
-  const p = [
-    [
-      "0x5e761E330c3355DBB814Ab58b4BE989BE99a41A7",
-      "ggassh",
-      "0x5e761E330c3355DBB814Ab58b4BE989BE99a41A7",
-      {
-        type: "BigNumber",
-        hex: "0x5e761e330c3355dbb814ab58b4be989be99a41a7",
-      },
-    ],
-    [
-      "0x5e761E330c3355DBB814Ab58b4BE989BE99a41A7",
-      "sss",
-      "bbssn",
-      {
-        type: "BigNumber",
-        hex: "0x5e761e330c3355dbb814ab58b4be989be99a41a7",
-      },
-    ],
-    [
-      "0x5e761E330c3355DBB814Ab58b4BE989BE99a41A7",
-      "0x5e761E330c3355DBB814Ab58b4BE989BE99a41A7",
-      "0x5e761E330c3355DBB814Ab58b4BE989BE99a41A7",
-      {
-        type: "BigNumber",
-        hex: "0x5e761e330c3355dbb814ab58b4be989be99a41a7",
-      },
-    ],
-  ];
+  const { data: lessons, isLoading } = useContractRead(contract, "getLessons");
+
   return (
     <>
       <h1>Lessons</h1>
@@ -45,26 +14,27 @@ export const Property = () => {
       ) : (
         <Flex my="4" gap="3" wrap="wrap" width="auto">
           {(
-            properties as
-              | [string, string, string, { _hex: string }][]
-              | undefined
-          )?.map(([propertyOwner, pinCode, image], i) => (
+            lessons as [string, string, boolean, string, string][] | undefined
+          )?.map(([creator, body, isPpublished, title], i) => (
             <Card key={i} style={{ maxWidth: "500px" }}>
               <Flex gap="3">
-                <Avatar size="4" src={image} fallback="T" />
+                <Avatar size="4" src={creator} fallback="T" />
                 <Box>
                   <Text mt="2" as="div" size="2" color="gray" weight="bold">
-                    {pinCode}
+                    {title}
                   </Text>
                   <Text mt="2" as="div" size="2" weight="light">
-                    {propertyOwner}
+                    {body}
                   </Text>
                   <Text mt="2" as="div" size="2" color="cyan">
-                    Created by Kalisa Marry
+                    Created by {creator}
                   </Text>
-                  <Text mt="2" as="div" size="2">
-                    {24} Enrolled
-                  </Text>
+                  {isPpublished && (
+                    <Text mt="2" as="div" size="2">
+                      {24} Enrolled
+                    </Text>
+                  )}
+
                   <Link to={`/lessons/${i}`}>
                     <Button variant="solid" mt="2">
                       read more

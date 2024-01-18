@@ -9,7 +9,7 @@ export const Register = () => {
 
   const { mutateAsync, isLoading, error } = useContractWrite(
     contract,
-    "createProperty"
+    "createLesson"
   );
 
   const [asset, setAsset] = useState({
@@ -20,7 +20,7 @@ export const Register = () => {
   const saveLesson = () => {
     const { name, notes } = asset;
     mutateAsync({
-      args: [name, notes],
+      args: [notes, name],
     }).then(() => {
       navigate("/");
     });
