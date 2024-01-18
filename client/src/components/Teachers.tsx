@@ -1,9 +1,9 @@
 import { Avatar, Box, Card, Flex, Text } from "@radix-ui/themes";
 
-export const PropertyOwners = () => {
+export const Teachers = () => {
   return (
     <>
-      <h1>Property / Assets owners</h1>
+      <h1>Teachers</h1>
       <Flex my="4" gap="3" wrap="wrap" width="auto">
         {Array(14)
           .fill(1)
@@ -21,7 +21,7 @@ export const PropertyOwners = () => {
                     Muslim uwi
                   </Text>
                   <Text as="div" size="2" color="gray">
-                    Alpha building
+                    ubuzima bwimyororokere
                   </Text>
                 </Box>
               </Flex>

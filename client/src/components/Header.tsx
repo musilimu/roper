@@ -8,7 +8,7 @@ export const Header = () => {
         <Link to="/">Assets</Link>
       </NavLink>
       <NavLink asChild>
-        <Link to="/owners">owners</Link>
+        <Link to="/teachers">teachers</Link>
       </NavLink>
       <NavLink asChild>
         <Link to="/register">register</Link>

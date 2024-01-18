@@ -114,6 +114,7 @@ contract Edu {
     struct Lesson {
         address creator;
         address[] students;
+        string name;
         string[] notes;
         mapping(uint256 => Review) reviews;
         mapping(uint256 => Exercise) exercises;
@@ -125,7 +126,7 @@ contract Edu {
         mapping(uint256 => Answer) answers;
     }
     
-    uint i = 0;
+    uint i = 0;Register an asset
     // Structure representing aanswer of question
     struct Answer {
         string text;
