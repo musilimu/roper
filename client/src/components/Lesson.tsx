@@ -11,14 +11,12 @@ const Lesson = () => {
   const {
     error,
     isLoading,
-    data: {
-      lessons: [creator, body, isPpublished, title],
-    },
+    data: { lessons },
   } = useProperty(id);
 
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
-
+  const [creator, body, isPpublished, title] = lessons;
   return (
     <div>
       <h1>Lesson {id}</h1>

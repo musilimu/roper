@@ -1,6 +1,7 @@
-import { Avatar, Badge, Box, Button, Card, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Box, Button, Card, Flex, Text } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 import { Property } from "../types/Property";
+import BadgeList from "./BadgeList";
 type PropertyProps = {
   property: Property;
   index: number;
@@ -49,11 +50,12 @@ const SingleProperty = ({
           </Button>
         </Box>
       </Flex>
-      <Flex gap="2" mt="4">
-        <Badge color="orange">social</Badge>
-        <Badge color="cyan">relationship</Badge>
-        <Badge color="green">science</Badge>
-      </Flex>
+      <BadgeList
+        badges={[
+          { badge: "social", color: "blue" },
+          { badge: "education", color: "gray" },
+        ]}
+      />
     </Card>
   );
 };

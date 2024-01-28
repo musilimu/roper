@@ -9,7 +9,9 @@ const BadgeList = ({ badges }: { badges: BadgeProps[] }) => {
   return (
     <Flex gap="2" mt="4">
       {badges.map(({ badge, color }) => (
-        <Badge color={color}>{badge}</Badge>
+        <Badge color={color} key={badge}>
+          {badge}
+        </Badge>
       ))}
     </Flex>
   );
