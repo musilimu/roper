@@ -23,28 +23,26 @@ const Lesson = () => {
     <div>
       <h1>Lesson {id}</h1>
       <LessonNav />
-      <Flex my="4" gap="3" wrap="wrap" width="auto">
-        <Flex gap="3">
-          <Avatar size="4" src={creator} fallback="T" />
-          <Box>
-            <Text mt="2" as="div" size="2" color="gray" weight="bold">
-              {title}
-            </Text>
-            <Text mt="2" as="div" size="2" weight="light">
-              {body}
-            </Text>
-            <Text mt="2" as="div" size="2" color="cyan">
-              Created by {creator}
-            </Text>
-          </Box>
-        </Flex>
-        <BadgeList
-          badges={[
-            { badge: "social", color: "blue" },
-            { badge: "education", color: "gray" },
-          ]}
-        />
+      <Flex gap="3">
+        <Avatar size="4" src={creator} fallback="T" />
+        <Box>
+          <Text mt="2" as="div" size="2" color="gray" weight="bold">
+            {title}
+          </Text>
+          <Text mt="2" as="div" size="2" weight="light">
+            {body}
+          </Text>
+          <Text mt="2" as="div" size="2" color="cyan">
+            Created by {creator}
+          </Text>
+        </Box>
       </Flex>
+      <BadgeList
+        badges={[
+          { badge: "social", color: "blue" },
+          { badge: "education", color: "gray" },
+        ]}
+      />
 
       <Button variant="solid" mt="2">
         add exercise
