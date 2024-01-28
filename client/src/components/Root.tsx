@@ -2,25 +2,26 @@ import { Route, Routes } from "react-router-dom";
 import { PropertiesList } from "./PropertiesList";
 import { Teachers } from "./Teachers";
 
-import { Web3Button } from "@thirdweb-dev/react";
+import { Web3Button, useAddress } from "@thirdweb-dev/react";
 import { Header } from "./Header";
 import { Flex } from "@radix-ui/themes";
 import { Register } from "./Register";
 import Lesson from "./Lesson";
 
 export const Root = () => {
+  const address = useAddress();
   return (
     <>
       <Flex justify="between" align="center">
         <Header />
-        <Web3Button
-          contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
-          action={() => {
-            console.log("hi");
-          }}
-        >
-          Connect wallet
-        </Web3Button>
+        {!address && (
+          <Web3Button
+            contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
+            action={() => {}}
+          >
+            Connect wallet
+          </Web3Button>
+        )}
       </Flex>
       <Routes>
         <Route path="/" element={<PropertiesList />} />

@@ -1,10 +1,12 @@
 import { Button, Flex, Text, TextArea, TextField } from "@radix-ui/themes";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ErrorEl from "./ErrorEl";
 
 export const Register = () => {
-  const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS);
+  const address = useAddress();
+  const { contract } = useContract(address);
   const navigate = useNavigate();
 
   const { mutateAsync, isLoading, error } = useContractWrite(
@@ -29,6 +31,7 @@ export const Register = () => {
   return (
     <Flex direction="column" mt="6" gap="3" style={{ maxWidth: 450 }}>
       <h1>Add a lesson</h1>
+      <ErrorEl error={error}></ErrorEl>
       <div>
         <Text>Lesson name</Text>
         <TextField.Input
