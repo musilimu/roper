@@ -1,12 +1,11 @@
 import { Button, Flex, Text, TextArea, TextField } from "@radix-ui/themes";
-import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
+import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorEl from "./ErrorEl";
 
 export const Register = () => {
-  const address = useAddress();
-  const { contract } = useContract(address);
+  const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS);
   const navigate = useNavigate();
 
   const { mutateAsync, isLoading, error } = useContractWrite(
