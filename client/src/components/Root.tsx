@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Property } from "./Property";
+import { PropertiesList } from "./PropertiesList";
 import { Teachers } from "./Teachers";
 
 import { Web3Button } from "@thirdweb-dev/react";
@@ -23,7 +23,7 @@ export const Root = () => {
         </Web3Button>
       </Flex>
       <Routes>
-        <Route path="/" element={<Property />} />
+        <Route path="/" element={<PropertiesList />} />
         <Route path="/teachers/*" element={<Teachers />} />
         <Route path="/register/*" element={<Register />} />
         <Route path="/lessons/:id" element={<Lesson />} />

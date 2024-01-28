@@ -2,11 +2,15 @@ import { Avatar, Badge, Box, Button, Card, Flex, Text } from "@radix-ui/themes";
 import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
+import ErrorEl from "./ErrorEl";
 
-export const Property = () => {
+export const PropertiesList = () => {
   const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS, "");
   const [next, setnext] = useState(0);
-  const { data, isLoading } = useContractRead(contract, "lessons", [next]);
+  const { data, isLoading, error } = useContractRead(contract, "lessons", [
+    next,
+  ]);
   const { data: lessonsCount, isLoading: loadingLessonsCount } =
     useContractRead(contract, "lessonsCount");
   const [lessons, setLessons] = useState<
@@ -21,12 +25,13 @@ export const Property = () => {
     setnext(next + 1);
   }, [isLoading, data, lessons, next, loadingLessonsCount, lessonsCount]);
 
+  if (isLoading || loadingLessonsCount) return <Loading />;
+  if (error) return <ErrorEl error={error} />;
+
   return (
     <>
       <h1>Lessons</h1>
-      {isLoading || loadingLessonsCount ? (
-        <h1>Loading ...</h1>
-      ) : (
+      {
         <Flex my="4" gap="3" wrap="wrap" width="auto">
           {lessons.map(({ creator, body, isPpublished, title }, i) => (
             <Card key={i} style={{ maxWidth: "500px" }}>
@@ -76,7 +81,7 @@ export const Property = () => {
             </Card>
           ))}
         </Flex>
-      )}
+      }
     </>
   );
 };
