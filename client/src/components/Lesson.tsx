@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import ErrorEl from "./ErrorEl";
 import BadgeList from "./BadgeList";
 import LessonNav from "./LessonNav";
+import Review from "./Review";
 
 const Lesson = () => {
   const { id } = useParams();
@@ -45,9 +46,7 @@ const Lesson = () => {
       <Button variant="solid" mt="2">
         add exercise
       </Button>
-      <Button variant="solid" mt="2" ml="2">
-        add a review
-      </Button>
+      <Review />
       <Button variant="solid" mt="2" ml="2">
         publish
       </Button>
