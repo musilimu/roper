@@ -19,7 +19,7 @@ const Lesson = () => {
   const [creator, body, isPpublished, title] = lessons;
   return (
     <div>
-      <h1>Lesson {id}</h1>
+      <h1>Lesson: {title}</h1>
       <LessonNav />
       <Flex gap="3">
         <Avatar size="4" src={creator} fallback="T" />
