@@ -7,9 +7,12 @@ import BadgeList from "./BadgeList";
 import LessonNav from "./LessonNav";
 import Review from "./Review";
 import { useReviews } from "../hooks/review";
+import { useAddress } from "@thirdweb-dev/react";
+import Login from "./Login";
 
 const Lesson = () => {
   const { id } = useParams();
+  const address = useAddress();
   const {
     error,
     isLoading,
@@ -21,6 +24,7 @@ const Lesson = () => {
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
   const [creator, body, isPpublished, title] = lessons;
+  if (!address) return <Login />;
   return (
     <div>
       <h1>Lesson {id}</h1>
