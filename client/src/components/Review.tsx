@@ -13,9 +13,20 @@ import {
   StarFilledIcon,
 } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { useParams } from "react-router-dom";
 
 const Review = () => {
   const [filled, setFilled] = useState(0);
+  const [message, setMessage] = useState("");
+  const { id } = useParams();
+
+  const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS, "");
+  const { mutateAsync, isLoading, error } = useContractWrite(
+    contract,
+    "addReview"
+  );
+  console.log(error);
   return (
     <Popover.Root>
       <Popover.Trigger>
@@ -33,7 +44,12 @@ const Review = () => {
             radius="full"
           />
           <Box grow="1">
-            <TextArea placeholder="Write a comment…" style={{ height: 80 }} />
+            <TextArea
+              placeholder="Write a comment…"
+              style={{ height: 80 }}
+              defaultValue={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
             <Flex gap="3" mt="3" justify="between">
               <Flex align="center" gap="2" asChild>
                 <Text as="label" size="2">
@@ -52,8 +68,13 @@ const Review = () => {
                 </Text>
               </Flex>
 
-              <Popover.Close>
-                <Button size="1">Comment</Button>
+              <Popover.Close disabled={isLoading}>
+                <Button
+                  size="1"
+                  onClick={() => mutateAsync({ args: [id, message, filled] })}
+                >
+                  Comment
+                </Button>
               </Popover.Close>
             </Flex>
           </Box>

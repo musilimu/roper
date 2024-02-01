@@ -6,6 +6,7 @@ import ErrorEl from "./ErrorEl";
 import BadgeList from "./BadgeList";
 import LessonNav from "./LessonNav";
 import Review from "./Review";
+import { useReviews } from "../hooks/review";
 
 const Lesson = () => {
   const { id } = useParams();
@@ -14,6 +15,8 @@ const Lesson = () => {
     isLoading,
     data: { lessons },
   } = useProperty(id);
+  const data = useReviews(id);
+  console.log(data);
 
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
@@ -56,11 +59,6 @@ const Lesson = () => {
         </Text>
       )}
 
-      <Link to={`/lessons/${id}`}>
-        <Button variant="solid" mt="2" ml="2">
-          read more
-        </Button>
-      </Link>
       <Button variant="solid" mt="2" ml="2">
         enroll
       </Button>
