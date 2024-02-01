@@ -18,6 +18,5 @@ export function useLessons() {
     setLessons([...lessons, { creator, body, isPpublished, title }]);
     setnext(next + 1);
   }, [isLoading, data, lessons, next, lessonsCount]);
-
-  return { lessons, error, isLoading };
+  return { lessons, error, isLoading: next < lessonsCount };
 }
