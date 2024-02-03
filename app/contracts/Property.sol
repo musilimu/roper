@@ -2,8 +2,10 @@
 pragma solidity ^0.8.0;
 
 import "@thirdweb-dev/contracts/base/ERC721Base.sol";
+import "./Types.sol";
+import "./Modifier.sol";
 
-contract Property is ERC721Base {
+contract Property is Types, Modifier,ERC721Base {
     constructor(
         address _defaultAdmin,
         string memory _name,
@@ -19,30 +21,7 @@ contract Property is ERC721Base {
             _royaltyBps
         )
     {}
-
-    struct Lesson {
-        address creator;
-        string notes;
-        bool ispublished;
-        string name;
-    }
-
-    struct Exercise {
-        string question;
-        Answer[] answers;
-    }
-
-    struct Answer {
-        string text;
-        bool isCorrect;
-    }
-
-    struct Review {
-        string message;
-        uint256 stars;
-    }
-
-    mapping(uint256 => Lesson) public lessons;
+   mapping(uint256 => Lesson) public lessons;
     mapping(uint256 => mapping(address => Review)) public lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) public exercises;
     uint256 public exercisesCount = 0;
@@ -50,8 +29,25 @@ contract Property is ERC721Base {
 
     event createLessonE(string notes, string name);
 
-    function createLesson(string memory notes, string memory name) public {
+    function createLesson(string memory notes, string memory name)
+        public
+        isLessonValid(notes, name)
+    {
         lessons[lessonsCount++] = Lesson(msg.sender, notes, false, name);
+        emit createLessonE(notes, name);
+    }
+
+    function updateLesson(
+        uint256 lessonId,
+        string memory notes,
+        string memory name
+    ) public isCreator(lessons[lessonId].creator) isLessonValid(notes, name) {
+        require(lessonId < lessonsCount, "Lesson does not exist");
+
+        Lesson storage lessonToUpdate = lessons[lessonId];
+        lessonToUpdate.notes = notes;
+        lessonToUpdate.name = name;
+
         emit createLessonE(notes, name);
     }
 
@@ -67,12 +63,8 @@ contract Property is ERC721Base {
         string memory question,
         string[] memory answerTexts,
         bool[] memory isCorrect
-    ) public {
+    ) public isCreator(lessons[lessonId].creator) {
         require(lessonId < lessonsCount, "Lesson does not exist");
-        require(
-            msg.sender == lessons[lessonId].creator,
-            "Only the creator can add exercises"
-        );
         require(
             answerTexts.length == isCorrect.length,
             "Mismatched answer arrays"
