@@ -8,6 +8,7 @@ contract Types {
         address creator;
         string notes;
         bool ispublished;
+        bool isDeleted;
         string name;
     }
 

@@ -28,12 +28,13 @@ contract Property is Types, Modifier,ERC721Base {
     uint256 public lessonsCount = 0;
 
     event createLessonE(string notes, string name);
+    event lessonUpdated(string notes, string name);
 
     function createLesson(string memory notes, string memory name)
         public
         isLessonValid(notes, name)
     {
-        lessons[lessonsCount++] = Lesson(msg.sender, notes, false, name);
+        lessons[lessonsCount++] = Lesson(msg.sender, notes, false, false, name);
         emit createLessonE(notes, name);
     }
 
@@ -48,7 +49,13 @@ contract Property is Types, Modifier,ERC721Base {
         lessonToUpdate.notes = notes;
         lessonToUpdate.name = name;
 
-        emit createLessonE(notes, name);
+        emit lessonUpdated(notes, name);
+    }
+
+    function deleteLesson(uint256 lessonId) public isCreator(lessons[lessonId].creator) {
+        require(lessonId < lessonsCount, "Lesson does not exist");
+        Lesson storage lessonToDelete = lessons[lessonId];
+        lessonToDelete.isDeleted = true;
     }
 
     event addExerciseE(
