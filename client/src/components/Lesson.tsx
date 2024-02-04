@@ -5,15 +5,22 @@ import Loading from "./Loading";
 import ErrorEl from "./ErrorEl";
 import BadgeList from "./BadgeList";
 import LessonNav from "./LessonNav";
+import Review from "./Review";
+import { useReviews } from "../hooks/review";
+// import { useAddress } from "@thirdweb-dev/react";
+// import Login from "./Login";
 import DeleteCourseButton from "./DeleteCourseBtn";
 
 const Lesson = () => {
   const { id } = useParams();
+  // const address = useAddress();
   const {
     error,
     isLoading,
     data: { lessons },
   } = useProperty(id);
+  const data = useReviews(id);
+  console.log(data);
 
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
@@ -46,9 +53,7 @@ const Lesson = () => {
       <Button variant="solid" mt="2">
         add exercise
       </Button>
-      <Button variant="solid" mt="2" ml="2">
-        add a review
-      </Button>
+      <Review />
       <Button variant="solid" mt="2" ml="2">
         publish
       </Button>
@@ -58,6 +63,7 @@ const Lesson = () => {
           {24} Enrolled
         </Text>
       )}
+
       <Button variant="solid" mt="2" ml="2">
         enroll
       </Button>
