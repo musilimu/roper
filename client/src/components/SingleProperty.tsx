@@ -7,7 +7,7 @@ type PropertyProps = {
   index: number;
 };
 const SingleProperty = ({
-  property: { body, creator, isPpublished, title },
+  property: { body, creator, isPublished, title },
   index,
 }: PropertyProps) => {
   return (
@@ -34,7 +34,7 @@ const SingleProperty = ({
           <Text mt="2" as="div" size="2" color="cyan">
             Created by {creator}
           </Text>
-          {isPpublished && (
+          {isPublished && (
             <Text mt="2" as="div" size="2">
               {24} Enrolled
             </Text>

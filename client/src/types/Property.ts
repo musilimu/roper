@@ -1,6 +1,7 @@
 export type Property = {
   creator: string;
   body: string;
-  isPpublished: boolean;
+  isPublished: boolean;
+  isDeleted: boolean;
   title: string;
 };
