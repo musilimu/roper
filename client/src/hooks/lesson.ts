@@ -14,7 +14,7 @@ export function useLessons() {
   useEffect(() => {
     if (isLoading || !data) return;
     if (lessonsCount < next) return;
-    const [creator, body, isPublished, title, isDeleted] = data;
+    const [creator, body, isPublished, isDeleted, title] = data;
     setLessons([...lessons, { creator, body, isPublished, isDeleted, title }]);
     setnext(next + 1);
   }, [isLoading, data, lessons, next, lessonsCount]);

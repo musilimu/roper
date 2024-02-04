@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Flex, Text } from "@radix-ui/themes";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useProperty } from "../api/property";
 import Loading from "./Loading";
 import ErrorEl from "./ErrorEl";
@@ -52,18 +52,12 @@ const Lesson = () => {
       <Button variant="solid" mt="2" ml="2">
         publish
       </Button>
-      <DeleteCourseButton id={id}/>
+      <DeleteCourseButton id={id} />
       {isPublished && (
         <Text mt="2" as="div" size="2" ml="2">
           {24} Enrolled
         </Text>
       )}
-
-      <Link to={`/lessons/${id}`}>
-        <Button variant="solid" mt="2" ml="2">
-          read more
-        </Button>
-      </Link>
       <Button variant="solid" mt="2" ml="2">
         enroll
       </Button>

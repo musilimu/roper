@@ -3,7 +3,7 @@ import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
 import ErrorEl from "./ErrorEl";
 
-const DeleteCourseButton = ({ id }: { id: number | string }) => {
+const DeleteCourseButton = ({ id }: { id: number | string | undefined }) => {
   const navigate = useNavigate();
   const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS);
   const { mutateAsync, isLoading, error } = useContractWrite(
