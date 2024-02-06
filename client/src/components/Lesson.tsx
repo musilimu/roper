@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Flex, Text } from "@radix-ui/themes";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useProperty } from "../api/property";
 import Loading from "./Loading";
 import ErrorEl from "./ErrorEl";
@@ -7,12 +7,13 @@ import BadgeList from "./BadgeList";
 import LessonNav from "./LessonNav";
 import Review from "./Review";
 import { useReviews } from "../hooks/review";
-import { useAddress } from "@thirdweb-dev/react";
-import Login from "./Login";
+// import { useAddress } from "@thirdweb-dev/react";
+// import Login from "./Login";
+import DeleteCourseButton from "./DeleteCourseBtn";
 
 const Lesson = () => {
   const { id } = useParams();
-  const address = useAddress();
+  // const address = useAddress();
   const {
     error,
     isLoading,
@@ -23,8 +24,7 @@ const Lesson = () => {
 
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
-  const [creator, body, isPpublished, title] = lessons;
-  if (!address) return <Login />;
+  const [creator, body, isPublished, title] = lessons;
   return (
     <div>
       <h1>Lesson {id}</h1>
@@ -57,7 +57,8 @@ const Lesson = () => {
       <Button variant="solid" mt="2" ml="2">
         publish
       </Button>
-      {isPpublished && (
+      <DeleteCourseButton id={id} />
+      {isPublished && (
         <Text mt="2" as="div" size="2" ml="2">
           {24} Enrolled
         </Text>

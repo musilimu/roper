@@ -53,7 +53,7 @@ export const Register = () => {
           }
         />
       </div>
-      <Button onClick={saveLesson}>save {isLoading && "loading..."}</Button>
+      <Button disabled={isLoading} onClick={saveLesson}>save {isLoading && "loading..."}</Button>
     </Flex>
   );
 };

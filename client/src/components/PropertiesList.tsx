@@ -12,12 +12,14 @@ export const PropertiesList = () => {
   if (!address) return <Login />;
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
+  
+  const activeLessons = lessons.filter((lesson) => !lesson.isDeleted);
   return (
     <>
       <h1>Lessons</h1>
       {
         <Flex my="4" gap="3" wrap="wrap" width="auto">
-          {lessons.map((property, i) => (
+          {activeLessons.map((property, i) => (
             <SingleProperty index={i} property={property} key={property.body} />
           ))}
         </Flex>
