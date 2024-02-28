@@ -1,9 +1,9 @@
 {
   "name": "hardhat-javascript-starter",
   "scripts": {
-    "build": "pnpm thirdweb detect",
-    "deploy": "pnpm thirdweb deploy",
-    "release": "pnpm thirdweb release"
+    "build": "npx thirdweb detect",
+    "deploy": "npx thirdweb deploy",
+    "release": "npx thirdweb release"
   },
   "devDependencies": {
     "@matterlabs/hardhat-zksync-solc": "^0.3.17",
