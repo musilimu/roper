@@ -6,21 +6,18 @@ import ErrorEl from "./ErrorEl";
 import BadgeList from "./BadgeList";
 import LessonNav from "./LessonNav";
 import Review from "./Review";
-import { useReviews } from "../hooks/review";
-// import { useAddress } from "@thirdweb-dev/react";
-// import Login from "./Login";
 import DeleteCourseButton from "./DeleteCourseBtn";
+import { Reviews } from "./Reviews";
+
 
 const Lesson = () => {
   const { id } = useParams();
-  // const address = useAddress();
   const {
     error,
     isLoading,
     data: { lessons },
   } = useProperty(id);
-  const data = useReviews(id);
-  console.log(data);
+
 
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
@@ -43,6 +40,7 @@ const Lesson = () => {
           </Text>
         </Box>
       </Flex>
+      <Reviews />
       <BadgeList
         badges={[
           { badge: "social", color: "blue" },

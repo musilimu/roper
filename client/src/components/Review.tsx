@@ -9,12 +9,11 @@ import {
 } from "@radix-ui/themes";
 import {
   ChatBubbleIcon,
-  StarIcon,
-  StarFilledIcon,
 } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { useParams } from "react-router-dom";
+import { Stars } from "./Stars";
 
 const Review = () => {
   const [filled, setFilled] = useState(0);
@@ -53,18 +52,7 @@ const Review = () => {
             <Flex gap="3" mt="3" justify="between">
               <Flex align="center" gap="2" asChild>
                 <Text as="label" size="2">
-                  {Array(5)
-                    .fill(1)
-                    .map((_, i) =>
-                      i < filled ? (
-                        <StarFilledIcon
-                          key={i}
-                          onClick={() => setFilled(i + 1)}
-                        />
-                      ) : (
-                        <StarIcon key={i} onClick={() => setFilled(i + 1)} />
-                      )
-                    )}
+                  <Stars stars={5} setFilled={setFilled} filled={filled}/>
                 </Text>
               </Flex>
 

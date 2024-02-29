@@ -26,5 +26,10 @@ contract Types {
         string message;
         uint256 stars;
     }
+    
+        struct Set {
+        address[] values;
+        mapping(address => bool) is_in;
+    }
 
 } 

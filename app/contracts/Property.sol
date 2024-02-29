@@ -1,31 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-import "@thirdweb-dev/contracts/base/ERC721Base.sol";
 import "./Types.sol";
 import "./Modifier.sol";
 
-contract Property is Types, Modifier,ERC721Base {
-    constructor(
-        address _defaultAdmin,
-        string memory _name,
-        string memory _symbol,
-        address _royaltyRecipient,
-        uint128 _royaltyBps
-    )
-        ERC721Base(
-            _defaultAdmin,
-            _name,
-            _symbol,
-            _royaltyRecipient,
-            _royaltyBps
-        )
-    {}
-   mapping(uint256 => Lesson) public lessons;
+contract Property is Types, Modifier {
+    mapping(uint256 => Lesson) public lessons;
     mapping(uint256 => mapping(address => Review)) public lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) public exercises;
     uint256 public exercisesCount = 0;
     uint256 public lessonsCount = 0;
+
+
+    Set users;
+
+    function addUser(address a) public {
+        if (!users.is_in[a]) {
+            users.values.push(a);
+            users.is_in[a] = true;
+        }
+    }
+
+    function allUsers() view public returns (address[] memory) {
+        return users.values;
+    }
 
     event createLessonE(string notes, string name);
     event lessonUpdated(string notes, string name);
@@ -52,7 +49,10 @@ contract Property is Types, Modifier,ERC721Base {
         emit lessonUpdated(notes, name);
     }
 
-    function deleteLesson(uint256 lessonId) public isCreator(lessons[lessonId].creator) {
+    function deleteLesson(uint256 lessonId)
+        public
+        isCreator(lessons[lessonId].creator)
+    {
         require(lessonId < lessonsCount, "Lesson does not exist");
         Lesson storage lessonToDelete = lessons[lessonId];
         lessonToDelete.isDeleted = true;
@@ -96,7 +96,7 @@ contract Property is Types, Modifier,ERC721Base {
     ) public {
         require(lessonId < lessonsCount, "Lesson does not exist");
         require(stars >= 1 && stars <= 5, "Stars should be between 1 and 5");
-
+        addUser(msg.sender);
         lessonsReviews[lessonId][msg.sender] = Review(message, stars);
         emit addReviewE(lessonId, message, stars);
     }

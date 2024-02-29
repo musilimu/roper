@@ -10,7 +10,7 @@ export function useLessons() {
     error,
     isLoading,
   } = useProperty(next);
-
+  
   useEffect(() => {
     if (isLoading || !data) return;
     if (lessonsCount < next) return;
