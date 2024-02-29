@@ -1,7 +1,9 @@
 import { Flex, Text, TextArea, TextField } from "@radix-ui/themes";
 import { Web3Button } from "@thirdweb-dev/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -10,9 +12,12 @@ export const Register = () => {
     notes: "",
   });
 
+const onChange = useCallback((value: string) => {
+  setAsset((val) => ({ ...val, notes: value }))
+}, []);
 
   return (
-    <Flex direction="column" mt="6" gap="3" style={{ maxWidth: 450 }}>
+    <Flex direction="column" mt="6" gap="3" >
       <h1>Add a lesson</h1>
       <div>
         <Text>Lesson name</Text>
@@ -28,13 +33,8 @@ export const Register = () => {
       </div>
       <div>
         <Text>Notes</Text>
-        <TextArea
-          placeholder="write notes…"
-          value={asset.notes}
-          onChange={(e) =>
-            setAsset((val) => ({ ...val, notes: e.target.value }))
-          }
-        />
+        <SimpleMDE 
+        value={asset.notes} onChange={onChange}/>
       </div>
       <Web3Button
         contractAddress="0x9C7500cB625BB71585D9B013A3D4FEb40d6BeC50"
