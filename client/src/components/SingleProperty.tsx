@@ -23,16 +23,11 @@ const SingleProperty = ({
             as="div"
             size="2"
             weight="light"
-            style={{
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
           >
             {body}
           </Text>
           <Text mt="2" as="div" size="2" color="cyan">
-            Created by {creator}
+            Created by {creator.slice(0, 5)}...{creator.slice(-5)}
           </Text>
           {isPublished && (
             <Text mt="2" as="div" size="2">
