@@ -1,5 +1,7 @@
 import { Avatar, Box, Button, Flex, Text } from "@radix-ui/themes";
 import { useParams } from "react-router-dom";
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { useProperty } from "../api/property";
 import Loading from "./Loading";
 import ErrorEl from "./ErrorEl";
@@ -8,7 +10,6 @@ import LessonNav from "./LessonNav";
 import Review from "./Review";
 import DeleteCourseButton from "./DeleteCourseBtn";
 import { Reviews } from "./Reviews";
-
 
 const Lesson = () => {
   const { id } = useParams();
@@ -32,9 +33,7 @@ const Lesson = () => {
           <Text mt="2" as="div" size="2" color="gray" weight="bold">
             {title}
           </Text>
-          <Text mt="2" as="div" size="2" weight="light">
-            {body}
-          </Text>
+          <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
           <Text mt="2" as="div" size="2" color="cyan">
             Created by {creator}
           </Text>

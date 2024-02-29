@@ -1,5 +1,7 @@
 import { Avatar, Box, Button, Card, Flex, Text } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { Property } from "../types/Property";
 import BadgeList from "./BadgeList";
 type PropertyProps = {
@@ -18,14 +20,7 @@ const SingleProperty = ({
           <Text mt="2" as="div" size="2" color="gray" weight="bold">
             {title}
           </Text>
-          <Text
-            mt="2"
-            as="div"
-            size="2"
-            weight="light"
-          >
-            {body}
-          </Text>
+          <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
           <Text mt="2" as="div" size="2" color="cyan">
             Created by {creator.slice(0, 5)}...{creator.slice(-5)}
           </Text>

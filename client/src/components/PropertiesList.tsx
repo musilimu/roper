@@ -5,6 +5,7 @@ import SingleProperty from "./SingleProperty";
 import { useLessons } from "../hooks/lesson";
 import { useAddress } from "@thirdweb-dev/react";
 import Login from "./Login";
+import { useMemo } from "react";
 
 export const PropertiesList = () => {
   const { error, isLoading, lessons } = useLessons();
@@ -13,7 +14,8 @@ export const PropertiesList = () => {
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
   
-  const activeLessons = lessons.filter((lesson) => !lesson.isDeleted && (lesson.creator !== '0x0000000000000000000000000000000000000000'));
+  const activeLessons = lessons.filter((lesson) => !lesson.isDeleted && (lesson.creator !== '0x0000000000000000000000000000000000000000'))
+  
   return (
     <>
       <h1>Lessons</h1>
