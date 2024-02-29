@@ -5,10 +5,11 @@ import "./Modifier.sol";
 
 contract Property is Types, Modifier {
     mapping(uint256 => Lesson) public lessons;
-    mapping(uint256 => mapping(address => Review)) public lessonsReviews;
+    mapping(uint256 => mapping(uint => Review)) public lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) public exercises;
     uint256 public exercisesCount = 0;
     uint256 public lessonsCount = 0;
+    uint256 public lessonsReviewCount=0;
 
 
     Set users;
@@ -97,7 +98,7 @@ contract Property is Types, Modifier {
         require(lessonId < lessonsCount, "Lesson does not exist");
         require(stars >= 1 && stars <= 5, "Stars should be between 1 and 5");
         addUser(msg.sender);
-        lessonsReviews[lessonId][msg.sender] = Review(message, stars);
+        lessonsReviews[lessonId][lessonsReviewCount++] = Review(message, stars);
         emit addReviewE(lessonId, message, stars);
     }
 }

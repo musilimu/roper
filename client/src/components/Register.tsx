@@ -37,7 +37,7 @@ export const Register = () => {
         />
       </div>
       <Web3Button
-        contractAddress="0xf95a0dDC6eB9259f6a41e42Bc5795aC4d875bf70"
+        contractAddress="0x9C7500cB625BB71585D9B013A3D4FEb40d6BeC50"
         action={async (contract) => { contract.call("createLesson", [asset.notes, asset.name]).then(() => { navigate("/"); setAsset({ name: '', notes: '' }) }); }}
       >
         save
