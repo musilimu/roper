@@ -11,7 +11,7 @@ import {
   ChatBubbleIcon,
 } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { Web3Button } from "@thirdweb-dev/react";
 import { useParams } from "react-router-dom";
 import { Stars } from "./Stars";
 
@@ -20,12 +20,6 @@ const Review = () => {
   const [message, setMessage] = useState("");
   const { id } = useParams();
 
-  const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS, "");
-  const { mutateAsync, isLoading, error } = useContractWrite(
-    contract,
-    "addReview"
-  );
-  console.log(error);
   return (
     <Popover.Root>
       <Popover.Trigger>
@@ -52,17 +46,17 @@ const Review = () => {
             <Flex gap="3" mt="3" justify="between">
               <Flex align="center" gap="2" asChild>
                 <Text as="label" size="2">
-                  <Stars stars={5} setFilled={setFilled} filled={filled}/>
+                  <Stars stars={5} setFilled={setFilled} filled={filled} />
                 </Text>
               </Flex>
 
-              <Popover.Close disabled={isLoading}>
-                <Button
-                  size="1"
-                  onClick={() => mutateAsync({ args: [id, message, filled] })}
+              <Popover.Close>
+                <Web3Button
+                  contractAddress="0xf95a0dDC6eB9259f6a41e42Bc5795aC4d875bf70"
+                  action={async (contract) => { contract.call("addReview", [id, message, filled]) }}
                 >
                   Comment
-                </Button>
+                </Web3Button>
               </Popover.Close>
             </Flex>
           </Box>

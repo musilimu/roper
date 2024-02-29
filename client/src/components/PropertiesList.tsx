@@ -13,7 +13,7 @@ export const PropertiesList = () => {
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
   
-  const activeLessons = lessons.filter((lesson) => !lesson.isDeleted);
+  const activeLessons = lessons.filter((lesson) => !lesson.isDeleted && (lesson.creator !== '0x0000000000000000000000000000000000000000'));
   return (
     <>
       <h1>Lessons</h1>

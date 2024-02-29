@@ -1,36 +1,19 @@
-import { Button, Flex, Text, TextArea, TextField } from "@radix-ui/themes";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { Flex, Text, TextArea, TextField } from "@radix-ui/themes";
+import { Web3Button } from "@thirdweb-dev/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ErrorEl from "./ErrorEl";
 
 export const Register = () => {
-  const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS);
   const navigate = useNavigate();
-
-  const { mutateAsync, isLoading, error } = useContractWrite(
-    contract,
-    "createLesson"
-  );
-
   const [asset, setAsset] = useState({
     name: "",
     notes: "",
   });
 
-  const saveLesson = () => {
-    const { name, notes } = asset;
-    mutateAsync({
-      args: [notes, name],
-    }).then(() => {
-      navigate("/");
-    });
-  };
 
   return (
     <Flex direction="column" mt="6" gap="3" style={{ maxWidth: 450 }}>
       <h1>Add a lesson</h1>
-      <ErrorEl error={error}></ErrorEl>
       <div>
         <Text>Lesson name</Text>
         <TextField.Input
@@ -53,7 +36,12 @@ export const Register = () => {
           }
         />
       </div>
-      <Button disabled={isLoading} onClick={saveLesson}>save {isLoading && "loading..."}</Button>
+      <Web3Button
+        contractAddress="0xf95a0dDC6eB9259f6a41e42Bc5795aC4d875bf70"
+        action={async (contract) => { contract.call("createLesson", [asset.notes, asset.name]).then(() => { navigate("/"); setAsset({ name: '', notes: '' }) }); }}
+      >
+        save
+      </Web3Button>
     </Flex>
   );
 };

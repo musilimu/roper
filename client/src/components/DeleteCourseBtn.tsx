@@ -1,31 +1,16 @@
-import { Button } from "@radix-ui/themes";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { Web3Button } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
-import ErrorEl from "./ErrorEl";
 
 const DeleteCourseButton = ({ id }: { id: number | string | undefined }) => {
   const navigate = useNavigate();
-  const { contract } = useContract(import.meta.env.VITE_CONTRACTADDRESS);
-  const { mutateAsync, isLoading, error } = useContractWrite(
-    contract,
-    "deleteLesson"
-  );
-
-  const deleteLesson = () => {
-    mutateAsync({
-      args: [id],
-    }).then(() => {
-      navigate("/");
-    })
-  }
 
   return (
-    <>
-      <ErrorEl error={error}></ErrorEl>
-      <Button onClick={deleteLesson} disabled={isLoading} variant="surface" mt="2" ml="2">
-        {isLoading ? "Deleting..." : "Delete"}
-      </Button>
-    </>
+    <Web3Button
+      contractAddress="0xf95a0dDC6eB9259f6a41e42Bc5795aC4d875bf70"
+      action={async (contract) => { contract.call("deleteLesson", [id]).then(() => navigate("/")); }}
+    >
+      Delete
+    </Web3Button>
   )
 }
 
