@@ -1,20 +1,23 @@
-import { Flex, Text, TextArea, TextField } from "@radix-ui/themes";
+import { Flex, Text, TextField } from "@radix-ui/themes";
 import { Web3Button } from "@thirdweb-dev/react";
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
-export const Register = () => {
+export const Register = ({ name = '',
+  notes = '' }) => {
   const navigate = useNavigate();
   const [asset, setAsset] = useState({
-    name: "",
-    notes: "",
+    name,
+    notes,
   });
 
-const onChange = useCallback((value: string) => {
-  setAsset((val) => ({ ...val, notes: value }))
-}, []);
+  const { id } = useParams();
+
+  const onChange = useCallback((value: string) => {
+    setAsset((val) => ({ ...val, notes: value }))
+  }, []);
 
   return (
     <Flex direction="column" mt="6" gap="3" >
@@ -33,12 +36,18 @@ const onChange = useCallback((value: string) => {
       </div>
       <div>
         <Text>Notes</Text>
-        <SimpleMDE 
-        value={asset.notes} onChange={onChange}/>
+        <SimpleMDE
+          value={asset.notes} onChange={onChange} />
       </div>
       <Web3Button
         contractAddress="0xf10bfA953951B2394ab70D4617b97F963f66f0B2"
-        action={async (contract) => { contract.call("createLesson", [asset.notes, asset.name]).then(() => { navigate("/"); setAsset({ name: '', notes: '' }) }); }}
+        action={async (contract) => {
+          if (id) {
+            contract.call("updateLesson", [id, asset.notes, asset.name]).then(() => { navigate("/"); setAsset({ name: '', notes: '' }) });
+          } else {
+            contract.call("createLesson", [asset.notes, asset.name]).then(() => { navigate("/"); setAsset({ name: '', notes: '' }) });
+          }
+        }}
       >
         save
       </Web3Button>

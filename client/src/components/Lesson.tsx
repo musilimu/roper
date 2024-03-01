@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Flex, Text } from "@radix-ui/themes";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useProperty } from "../api/property";
@@ -24,6 +24,7 @@ const Lesson = () => {
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
   const [creator, body, isPublished, title] = lessons;
+  
   return (
     <Flex mt='8'>
       <div>
@@ -47,12 +48,17 @@ const Lesson = () => {
             { badge: "education", color: "gray" },
           ]}
         />
-        <Flex gap='2'>
-          <Button variant="solid" mt="2">
+        <Flex gap='2' align='center'>
+          <Link to="edit">
+            <Button variant="solid">
+              Edit
+            </Button>
+          </Link>
+          <Button variant="solid">
             add exercise
           </Button>
           <Review />
-          <Button variant="solid" mt="2">
+          <Button variant="solid">
             publish
           </Button>
           <DeleteCourseButton />

@@ -119,4 +119,8 @@ contract Property is Types, Modifier {
     {
         return enrollments[lesson].values;
     }
+
+    function publishUnpublishLesson(uint lessonId) public isCreator(lessons[lessonId].creator) {
+        lessons[lessonId].ispublished = !lessons[lessonId].ispublished;
+    }
 }

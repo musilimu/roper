@@ -9,8 +9,7 @@ type BadgeProps = {
 const BadgeList = ({ badges }: { badges: BadgeProps[] }) => {
   return (
     <Flex gap="2" mt="4">
-    <EnrolledUsers />
-
+      <EnrolledUsers />
       {badges.map(({ badge, color }) => (
         <Badge color={color} key={badge}>
           {badge}

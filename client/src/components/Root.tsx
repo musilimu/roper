@@ -7,6 +7,7 @@ import { Register } from "./Register";
 import Lesson from "./Lesson";
 import UserAvatar from "./UserAvatar";
 import { useAddress } from "@thirdweb-dev/react";
+import { EditLesson } from "./EditLessson";
 
 export const Root = () => {
   const address = useAddress();
@@ -20,7 +21,10 @@ export const Root = () => {
         <Route path="/" element={<PropertiesList />} />
         <Route path="/teachers/*" element={<Teachers />} />
         <Route path="/register/*" element={<Register />} />
-        <Route path="/lessons/:id" element={<Lesson />} />
+        <Route path="/lessons/:id" >
+          <Route index element={<Lesson />} />
+          <Route path="edit" element={<EditLesson />} />
+        </Route>
       </Routes>
     </>
   );
