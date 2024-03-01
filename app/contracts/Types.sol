@@ -27,7 +27,7 @@ contract Types {
         uint256 stars;
     }
     
-        struct Set {
+    struct Set {
         address[] values;
         mapping(address => bool) is_in;
     }

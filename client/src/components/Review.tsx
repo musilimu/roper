@@ -23,7 +23,7 @@ const Review = () => {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button ml="2" mt="2">
+        <Button mt="2">
           <ChatBubbleIcon width="16" height="16" />
           Add a review
         </Button>
@@ -52,7 +52,7 @@ const Review = () => {
 
               <Popover.Close>
                 <Web3Button
-                  contractAddress="0x9C7500cB625BB71585D9B013A3D4FEb40d6BeC50"
+                  contractAddress="0xf10bfA953951B2394ab70D4617b97F963f66f0B2"
                   action={async (contract) => { contract.call("addReview", [id, message, filled]) }}
                 >
                   Comment

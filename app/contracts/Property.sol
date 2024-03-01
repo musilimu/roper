@@ -5,12 +5,12 @@ import "./Modifier.sol";
 
 contract Property is Types, Modifier {
     mapping(uint256 => Lesson) public lessons;
-    mapping(uint256 => mapping(uint => Review)) public lessonsReviews;
+    mapping(uint256 => mapping(uint256 => Review)) public lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) public exercises;
+    mapping(uint256 => Set) enrollments;
     uint256 public exercisesCount = 0;
     uint256 public lessonsCount = 0;
-    uint256 public lessonsReviewCount=0;
-
+    uint256 public lessonsReviewCount = 0;
 
     Set users;
 
@@ -21,7 +21,7 @@ contract Property is Types, Modifier {
         }
     }
 
-    function allUsers() view public returns (address[] memory) {
+    function allUsers() public view returns (address[] memory) {
         return users.values;
     }
 
@@ -100,5 +100,23 @@ contract Property is Types, Modifier {
         addUser(msg.sender);
         lessonsReviews[lessonId][lessonsReviewCount++] = Review(message, stars);
         emit addReviewE(lessonId, message, stars);
+    }
+
+    event eEnroll(uint256 lesson);
+
+    function enroll(uint256 lesson) public {
+        if (!enrollments[lesson].is_in[msg.sender]) {
+            enrollments[lesson].values.push(msg.sender);
+            enrollments[lesson].is_in[msg.sender] = true;
+            emit eEnroll(lesson);
+        }
+    }
+
+    function lessonEnrollments(uint256 lesson)
+        public
+        view
+        returns (address[] memory)
+    {
+        return enrollments[lesson].values;
     }
 }
