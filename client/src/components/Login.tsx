@@ -14,6 +14,7 @@ const Login = () => {
           borderRadius: "2rem",
         }}
       />
+      <h1>welcome to ROPER</h1>
       <h1>Connect your wallet to login</h1>
       <UserAvatar />
     </>

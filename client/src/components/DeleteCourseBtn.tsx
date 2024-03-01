@@ -1,12 +1,13 @@
 import { Web3Button } from "@thirdweb-dev/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const DeleteCourseButton = ({ id }: { id: number | string | undefined }) => {
+const DeleteCourseButton = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   return (
     <Web3Button
-      contractAddress="0x9C7500cB625BB71585D9B013A3D4FEb40d6BeC50"
+      contractAddress="0xf10bfA953951B2394ab70D4617b97F963f66f0B2"
       action={async (contract) => { contract.call("deleteLesson", [id]).then(() => navigate("/")); }}
     >
       Delete

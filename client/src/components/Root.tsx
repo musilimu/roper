@@ -12,7 +12,7 @@ export const Root = () => {
   const address = useAddress();
   return (
     <>
-      <Flex justify="between" align="center">
+      <Flex justify="between" align="center" mt='4'>
         <Header />
         {address && <UserAvatar />}
       </Flex>
