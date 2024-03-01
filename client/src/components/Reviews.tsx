@@ -1,8 +1,8 @@
 import { uselessonsReviewCount } from "../api/users";
 import { useReview } from "../api/review";
-import {  useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Text } from "@radix-ui/themes";
+import { Text } from "@radix-ui/themes";
 import Loading from "./Loading";
 import ErrorEl from "./ErrorEl";
 import { Stars } from "./Stars";
@@ -27,17 +27,14 @@ export const Reviews = () => {
     }
     const rev = generateReview()
 
+    while (rev.next().value !== undefined) {}
     return <div>{
-        reviews.map(({ text, stars }) => <Text key={text} mt="2" as="div" size="2" color="gray">
+        reviews.map(({ text, stars }) => text === '' ? null : <Text key={text} mt="2" as="div" size="2" color="gray">
             <Text as="div">{text}</Text>
             <Stars stars={5} filled={stars?.toNumber()} />
         </Text>)
     }
-        {!(nextLessonsReviewCount >= lessonsReviewCount?.toNumber()) ? <Button variant="solid" mt="2" ml="2" onClick={() => {
-            rev.next()
-        }} disabled={isLoadingUsers || !!usersError || !!reviewError}>
-            Load next review
-        </Button> : null}
+
     </div>
 
 }
