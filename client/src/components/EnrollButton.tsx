@@ -6,7 +6,7 @@ export const EnrollButton = () => {
 
     return (
         <Web3Button
-            contractAddress="0xf10bfA953951B2394ab70D4617b97F963f66f0B2"
+            contractAddress="0xd76E4038FFAd5Aca9E2115B1bB32E3254BB5f113"
             action={async (contract) => { contract.call("enroll", [id]) }}
         >
             enroll

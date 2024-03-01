@@ -11,6 +11,7 @@ import Review from "./Review";
 import DeleteCourseButton from "./DeleteCourseBtn";
 import { Reviews } from "./Reviews";
 import { EnrollButton } from "./EnrollButton";
+import { PublishLesson } from "./PublishLesson";
 
 const Lesson = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const Lesson = () => {
   if (isLoading) return <Loading />;
   if (error) return <ErrorEl error={error} />;
   const [creator, body, isPublished, title] = lessons;
-  
+
   return (
     <Flex mt='8'>
       <div>
@@ -58,9 +59,7 @@ const Lesson = () => {
             add exercise
           </Button>
           <Review />
-          <Button variant="solid">
-            publish
-          </Button>
+          <PublishLesson isPublished={isPublished} />
           <DeleteCourseButton />
           <EnrollButton />
         </Flex>
