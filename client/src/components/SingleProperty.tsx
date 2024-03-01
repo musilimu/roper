@@ -20,7 +20,7 @@ const SingleProperty = ({
           <Text mt="2" as="div" size="2" color="gray" weight="bold">
             {title}
           </Text>
-          <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
+          <Markdown remarkPlugins={[remarkGfm]}>{body.slice(0, 20)}</Markdown>
           <Text mt="2" as="div" size="2" color="cyan">
             Created by {creator.slice(0, 5)}...{creator.slice(-5)}
           </Text>
