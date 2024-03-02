@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 contract Types {
-
     struct Lesson {
         address creator;
         string notes;
@@ -26,10 +25,14 @@ contract Types {
         string message;
         uint256 stars;
     }
-    
+
     struct Set {
         address[] values;
         mapping(address => bool) is_in;
     }
 
-} 
+    struct StudentsSet {
+        address[] values;
+        mapping(address => bool) is_in;
+    }
+}

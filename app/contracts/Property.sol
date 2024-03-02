@@ -7,6 +7,7 @@ contract Property is Types, Modifier {
     mapping(uint256 => Lesson) public lessons;
     mapping(uint256 => mapping(uint256 => Review)) public lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) public exercises;
+
     mapping(uint256 => Set) enrollments;
     uint256 public exercisesCount = 0;
     uint256 public lessonsCount = 0;
@@ -65,28 +66,56 @@ contract Property is Types, Modifier {
         string[] answerTexts,
         bool[] isCorrect
     );
+    mapping(uint256 => Answer) answers;
 
-    function addExercise(
-        uint256 lessonId,
-        string memory question,
-        string[] memory answerTexts,
-        bool[] memory isCorrect
-    ) public isCreator(lessons[lessonId].creator) {
-        require(lessonId < lessonsCount, "Lesson does not exist");
-        require(
-            answerTexts.length == isCorrect.length,
-            "Mismatched answer arrays"
+function addExercise(
+    uint256 lessonId,
+    string memory question,
+    string[] memory answerTexts,
+    bool[] memory isCorrect
+) public isCreator(lessons[lessonId].creator) {
+    require(lessonId < lessonsCount, "Lesson does not exist");
+    require(
+        answerTexts.length == isCorrect.length,
+        "Mismatched answer arrays"
+    );
+
+    uint256 exerciseIndex = exercisesCount;
+    exercises[lessonId][exerciseIndex].question = question;
+
+    for (uint256 i = 0; i < answerTexts.length; i++) {
+        exercises[lessonId][exerciseIndex].answers.push(
+            Answer(answerTexts[i], isCorrect[i])
         );
-
-        Exercise storage newExercise = exercises[lessonId][exercisesCount++];
-        newExercise.question = question;
-
-        for (uint256 i = 0; i < answerTexts.length; i++) {
-            newExercise.answers.push(Answer(answerTexts[i], isCorrect[i]));
-        }
-
-        emit addExerciseE(lessonId, question, answerTexts, isCorrect);
     }
+
+    exercisesCount++;
+
+    emit addExerciseE(lessonId, question, answerTexts, isCorrect);
+}
+function getExercise(uint256 lessonId, uint k) public view returns (Exercise[] memory) {
+    require(lessonId < lessonsCount, "Lesson does not exist");
+    require(k < exercisesCount, "Exercise index out of bounds");
+
+    Exercise[] memory lessonExercises = new Exercise[](k + 1);
+
+    for (uint256 i = 0; i <= k; i++) {
+        require(i < exercisesCount, "Exercise index out of bounds");
+        lessonExercises[i] = Exercise({
+            question: exercises[lessonId][i].question,
+            answers: new Answer[](exercises[lessonId][i].answers.length)
+        });
+
+        for (uint256 j = 0; j < exercises[lessonId][i].answers.length; j++) {
+            lessonExercises[i].answers[j] = Answer({
+                text: exercises[lessonId][i].answers[j].text,
+                isCorrect: exercises[lessonId][i].answers[j].isCorrect
+            });
+        }
+    }
+
+    return lessonExercises;
+}
 
     event addReviewE(uint256 lessonId, string message, uint256 stars);
 
@@ -120,9 +149,10 @@ contract Property is Types, Modifier {
         return enrollments[lesson].values;
     }
 
-    event publishUnpublishLessonE(uint lessonId);
-    function publishUnpublishLesson(uint lessonId) public isCreator(lessons[lessonId].creator) {
+    function publishUnpublishLesson(uint256 lessonId)
+        public
+        isCreator(lessons[lessonId].creator)
+    {
         lessons[lessonId].ispublished = !lessons[lessonId].ispublished;
-        emit publishUnpublishLessonE(lessonId);
     }
 }

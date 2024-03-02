@@ -9,6 +9,7 @@ import UserAvatar from "./UserAvatar";
 import { useAddress } from "@thirdweb-dev/react";
 import { EditLesson } from "./EditLessson";
 import { Exercises } from "./Exercises";
+import { DoExercises } from "./DoExercises";
 
 export const Root = () => {
   const address = useAddress();
@@ -25,7 +26,10 @@ export const Root = () => {
         <Route path="/lessons/:id" >
           <Route index element={<Lesson />} />
           <Route path="edit" element={<EditLesson />} />
-          <Route path="exercises" element={<Exercises />} />
+          <Route path="exercises"  >
+            <Route index element={<Exercises />} />
+            <Route path="do" element={<DoExercises />} />
+          </Route>
         </Route>
       </Routes>
     </>

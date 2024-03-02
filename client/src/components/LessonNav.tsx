@@ -5,7 +5,7 @@ const LessonNav = () => {
   return (
     <Flex gap="3">
       <NavLink asChild>
-        <Link to="exercises">exercises</Link>
+        <Link to="exercises/do">exercises</Link>
       </NavLink>
       <NavLink asChild>
         <Link to="books">books</Link>

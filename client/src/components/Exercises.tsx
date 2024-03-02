@@ -55,7 +55,7 @@ export const Exercises = () => {
         </div>
         <Flex mt='4'>
             <Web3Button
-                contractAddress="0xd76E4038FFAd5Aca9E2115B1bB32E3254BB5f113"
+                contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
                 action={async (contract) => { contract.call("addExercise", [id, question, answers.map(({ text }) => text), answers.map(({ isCorrect }) => isCorrect)]).then(() => navigate(`/lessons/${id}`)); }}
             >
                 save question
