@@ -55,9 +55,11 @@ const Lesson = () => {
               Edit
             </Button>
           </Link>
-          <Button variant="solid">
-            add exercise
-          </Button>
+          <Link to="exercises">
+            <Button variant="solid">
+              add exercise
+            </Button>
+          </Link>
           <Review />
           <PublishLesson isPublished={isPublished} />
           <DeleteCourseButton />

@@ -8,6 +8,7 @@ import Lesson from "./Lesson";
 import UserAvatar from "./UserAvatar";
 import { useAddress } from "@thirdweb-dev/react";
 import { EditLesson } from "./EditLessson";
+import { Exercises } from "./Exercises";
 
 export const Root = () => {
   const address = useAddress();
@@ -24,6 +25,7 @@ export const Root = () => {
         <Route path="/lessons/:id" >
           <Route index element={<Lesson />} />
           <Route path="edit" element={<EditLesson />} />
+          <Route path="exercises" element={<Exercises />} />
         </Route>
       </Routes>
     </>
