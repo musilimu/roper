@@ -2,9 +2,9 @@ import { ActionFn, Web3ButtonProps, Web3Button, lightTheme } from "@thirdweb-dev
 import { PropsWithChildren } from "react"
 
 
-export const W3Button = <TAction extends ActionFn>(props: PropsWithChildren<Web3ButtonProps<TAction>>) => {
+export const W3Button = <TAction extends ActionFn>(props: PropsWithChildren<Omit<Web3ButtonProps<TAction>, 'contractAddress'>>) => {
     return <Web3Button
-        contractAddress={props.contractAddress}
+        contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
         action={props.action}
         theme={lightTheme({
             colors: {

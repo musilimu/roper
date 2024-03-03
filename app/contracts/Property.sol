@@ -1,9 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+import "@thirdweb-dev/contracts/base/ERC721Base.sol";
 import "./Types.sol";
 import "./Modifier.sol";
 
-contract Property is Types, Modifier {
+contract Property is Types, Modifier, ERC721Base {
+        constructor(
+        address _defaultAdmin,
+        string memory _name,
+        string memory _symbol,
+        address _royaltyRecipient,
+        uint128 _royaltyBps
+    )
+        ERC721Base(
+            _defaultAdmin,
+            _name,
+            _symbol,
+            _royaltyRecipient,
+            _royaltyBps
+        )
+    {}
+
     mapping(uint256 => Lesson) public lessons;
     mapping(uint256 => mapping(uint256 => Review)) public lessonsReviews;
     mapping(uint256 => mapping(uint256 => Exercise)) public exercises;

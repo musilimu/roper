@@ -21,7 +21,7 @@ const Review = () => {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <W3Button contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800" action={() => { }}>
+        <W3Button  action={() => { }}>
           Add a review
         </W3Button>
       </Popover.Trigger>
@@ -49,7 +49,7 @@ const Review = () => {
 
               <Popover.Close>
                 <W3Button
-                  contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
+                  
                   action={async (contract) => { contract.call("addReview", [id, message, filled]) }}
                 >
                   Comment

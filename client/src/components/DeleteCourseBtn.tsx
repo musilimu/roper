@@ -6,10 +6,7 @@ const DeleteCourseButton = () => {
   const { id } = useParams();
 
   return (
-    <W3Button
-      contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
-      action={async (contract) => { contract.call("deleteLesson", [id]).then(() => navigate("/")); }}
-    >
+    <W3Button action={async (contract) => { contract.call("deleteLesson", [id]).then(() => navigate("/")); }}>
       Delete
     </W3Button>
   )

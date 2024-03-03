@@ -56,7 +56,6 @@ export const Exercises = () => {
         </div>
         <Flex mt='4'>
             <W3Button
-                contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
                 action={async (contract) => { contract.call("addExercise", [id, question, answers.map(({ text }) => text), answers.map(({ isCorrect }) => isCorrect)]).then(() => navigate(`/lessons/${id}`)); }}
             >
                 save question

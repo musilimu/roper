@@ -40,7 +40,6 @@ export const Register = ({ name = '',
           value={asset.notes} onChange={onChange} />
       </div>
       <W3Button
-        contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
         action={async (contract) => {
           if (id) {
             contract.call("updateLesson", [id, asset.notes, asset.name]).then(() => { navigate("/"); setAsset({ name: '', notes: '' }) });

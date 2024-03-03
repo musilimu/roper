@@ -17,7 +17,7 @@ export const Header = () => {
         <Link to="/register">register</Link>
       </NavLink>
       <NavLink asChild>
-        <Link to="/accounts">accounts</Link>
+        <Link to="/assets">assets</Link>
       </NavLink>
     </Flex>
   );

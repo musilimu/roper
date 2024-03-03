@@ -31,6 +31,7 @@ export const Root = () => {
             <Route path="do" element={<DoExercises />} />
           </Route>
         </Route>
+        <Route path="*" element={<h1>Page not found</h1>}/>
       </Routes>
     </>
   );

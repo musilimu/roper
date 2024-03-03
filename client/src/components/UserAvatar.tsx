@@ -14,7 +14,6 @@ const UserAvatar = () => {
     </>
   ) : (
     <W3Button
-      contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
       action={() => { }}
     >
       Connect wallet
