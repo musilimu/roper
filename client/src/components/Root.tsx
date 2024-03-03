@@ -10,6 +10,8 @@ import { useAddress } from "@thirdweb-dev/react";
 import { EditLesson } from "./EditLessson";
 import { Exercises } from "./Exercises";
 import { DoExercises } from "./DoExercises";
+import { Assets } from "./Assets";
+import { UploadNft } from "./UploadNft";
 
 export const Root = () => {
   const address = useAddress();
@@ -30,6 +32,10 @@ export const Root = () => {
             <Route index element={<Exercises />} />
             <Route path="do" element={<DoExercises />} />
           </Route>
+        </Route>
+        <Route path="/assets" >
+        <Route index element={<Assets />} />
+            <Route path="create" element={<UploadNft />} />
         </Route>
         <Route path="*" element={<h1>Page not found</h1>}/>
       </Routes>

@@ -1,5 +1,5 @@
-import { Avatar, Box, Button, Flex, Text } from "@radix-ui/themes";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Avatar, Box,Flex, Text } from "@radix-ui/themes";
+import { useParams } from "react-router-dom";
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useProperty } from "../api/property";
