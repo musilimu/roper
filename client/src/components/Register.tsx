@@ -1,9 +1,9 @@
 import { Flex, Text, TextField } from "@radix-ui/themes";
-import { Web3Button } from "@thirdweb-dev/react";
 import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import { W3Button } from "./W3Button";
 
 export const Register = ({ name = '',
   notes = '' }) => {
@@ -39,7 +39,7 @@ export const Register = ({ name = '',
         <SimpleMDE
           value={asset.notes} onChange={onChange} />
       </div>
-      <Web3Button
+      <W3Button
         contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
         action={async (contract) => {
           if (id) {
@@ -50,7 +50,7 @@ export const Register = ({ name = '',
         }}
       >
         save
-      </Web3Button>
+      </W3Button>
     </Flex>
   );
 };

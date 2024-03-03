@@ -1,5 +1,6 @@
-import { Web3Button, useAddress, useDisconnect } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect } from "@thirdweb-dev/react";
 import { Link, Tooltip } from "@radix-ui/themes";
+import { W3Button } from "./W3Button";
 const UserAvatar = () => {
   const address = useAddress();
   const disconnect = useDisconnect();
@@ -12,12 +13,12 @@ const UserAvatar = () => {
       </Tooltip>
     </>
   ) : (
-    <Web3Button
+    <W3Button
       contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
-      action={() => {}}
+      action={() => { }}
     >
       Connect wallet
-    </Web3Button>
+    </W3Button>
   );
 };
 

@@ -30,7 +30,7 @@ const Lesson = () => {
     <Flex mt='8'>
       <div>
         <LessonNav />
-        <Flex gap="3">
+        <Flex gap="3" mt='4'>
           <Avatar size="4" src={creator} fallback="T" />
           <Box>
             <Text mt="2" as="div" size="2" color="gray" weight="bold">
@@ -49,17 +49,7 @@ const Lesson = () => {
             { badge: "education", color: "gray" },
           ]}
         />
-        <Flex gap='2' align='center'>
-          <Link to="edit">
-            <Button variant="solid">
-              Edit
-            </Button>
-          </Link>
-          <Link to="exercises">
-            <Button variant="solid">
-              add exercise
-            </Button>
-          </Link>
+        <Flex gap='2' align='center' mt='4'>
           <Review />
           <PublishLesson isPublished={isPublished} />
           <DeleteCourseButton />

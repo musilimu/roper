@@ -10,6 +10,12 @@ const LessonNav = () => {
       <NavLink asChild>
         <Link to="books">books</Link>
       </NavLink>
+      <NavLink asChild>
+        <Link to="edit">Edit</Link>
+      </NavLink>
+      <NavLink asChild>
+        <Link to="exercises">add exercise</Link>
+      </NavLink>
     </Flex>
   );
 };

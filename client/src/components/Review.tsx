@@ -7,13 +7,11 @@ import {
   Text,
   TextArea,
 } from "@radix-ui/themes";
-import {
-  ChatBubbleIcon,
-} from "@radix-ui/react-icons";
+
 import { useState } from "react";
-import { Web3Button } from "@thirdweb-dev/react";
 import { useParams } from "react-router-dom";
 import { Stars } from "./Stars";
+import { W3Button } from "./W3Button";
 
 const Review = () => {
   const [filled, setFilled] = useState(0);
@@ -23,10 +21,9 @@ const Review = () => {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button mt="2">
-          <ChatBubbleIcon width="16" height="16" />
+        <W3Button contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800" action={() => { }}>
           Add a review
-        </Button>
+        </W3Button>
       </Popover.Trigger>
       <Popover.Content style={{ width: 360 }}>
         <Flex gap="3">
@@ -51,12 +48,12 @@ const Review = () => {
               </Flex>
 
               <Popover.Close>
-                <Web3Button
+                <W3Button
                   contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
                   action={async (contract) => { contract.call("addReview", [id, message, filled]) }}
                 >
                   Comment
-                </Web3Button>
+                </W3Button>
               </Popover.Close>
             </Flex>
           </Box>

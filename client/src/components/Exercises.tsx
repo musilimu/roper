@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnswerForm } from "./AnswerForm";
 import { Answer } from "./Answer";
-import { Web3Button } from "@thirdweb-dev/react";
+import { W3Button } from "./W3Button";
+
 
 export type TAnswer = {
     id?: string,
@@ -54,12 +55,12 @@ export const Exercises = () => {
             <AnswerForm setAnswers={setAnswers} answer={answer} setAnswer={setAnswer} setIsAddingAnswer={setIsAddingAnswer} isAddingAnswer={isAddingAnswer} />
         </div>
         <Flex mt='4'>
-            <Web3Button
+            <W3Button
                 contractAddress="0xF2F64A8932c42A2E57D100fAE1aFB60528c9b800"
                 action={async (contract) => { contract.call("addExercise", [id, question, answers.map(({ text }) => text), answers.map(({ isCorrect }) => isCorrect)]).then(() => navigate(`/lessons/${id}`)); }}
             >
                 save question
-            </Web3Button>
+            </W3Button>
         </Flex>
     </div>
 
